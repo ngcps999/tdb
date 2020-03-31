@@ -1,0 +1,362 @@
+@prefix map: <#> .
+@prefix db: <> .
+@prefix vocab: <vocab/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "com.mysql.jdbc.Driver";
+	d2rq:jdbcDSN "jdbc:mysql://localhost:3306/sell?characterEncoding=utf8";
+	d2rq:username "root";
+	d2rq:password "SDysjdsr1225";
+	jdbc:autoReconnect "true";
+	jdbc:zeroDateTimeBehavior "convertToNull";
+	.
+
+# Table hibernate_sequence
+map:hibernate_sequence a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "hibernate_sequence" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "hibernate_sequence";
+	d2rq:class vocab:hibernate_sequence;
+	d2rq:classDefinitionLabel "hibernate_sequence";
+	.
+map:hibernate_sequence_next_val a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:hibernate_sequence;
+	d2rq:property vocab:hibernate_sequence_next_val;
+	d2rq:propertyDefinitionLabel "hibernate_sequence next_val";
+	d2rq:column "hibernate_sequence.next_val";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table order_detail
+map:order_detail a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "order_detail/@@order_detail.detail_id|urlify@@";
+	d2rq:class vocab:order_detail;
+	d2rq:classDefinitionLabel "order_detail";
+	.
+map:order_detail__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_detail;
+	d2rq:property rdfs:label;
+	d2rq:pattern "order_detail #@@order_detail.detail_id@@";
+	.
+map:order_detail_detail_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_detail;
+	d2rq:property vocab:order_detail_detail_id;
+	d2rq:propertyDefinitionLabel "order_detail detail_id";
+	d2rq:column "order_detail.detail_id";
+	.
+map:order_detail_order_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_detail;
+	d2rq:property vocab:order_detail_order_id;
+	d2rq:propertyDefinitionLabel "order_detail order_id";
+	d2rq:column "order_detail.order_id";
+	.
+map:order_detail_product_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_detail;
+	d2rq:property vocab:order_detail_product_id;
+	d2rq:propertyDefinitionLabel "order_detail product_id";
+	d2rq:column "order_detail.product_id";
+	.
+map:order_detail_product_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_detail;
+	d2rq:property vocab:order_detail_product_name;
+	d2rq:propertyDefinitionLabel "order_detail product_name";
+	d2rq:column "order_detail.product_name";
+	.
+map:order_detail_product_price a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_detail;
+	d2rq:property vocab:order_detail_product_price;
+	d2rq:propertyDefinitionLabel "order_detail product_price";
+	d2rq:column "order_detail.product_price";
+	d2rq:datatype xsd:decimal;
+	.
+map:order_detail_product_quantity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_detail;
+	d2rq:property vocab:order_detail_product_quantity;
+	d2rq:propertyDefinitionLabel "order_detail product_quantity";
+	d2rq:column "order_detail.product_quantity";
+	d2rq:datatype xsd:integer;
+	.
+map:order_detail_product_icon a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_detail;
+	d2rq:property vocab:order_detail_product_icon;
+	d2rq:propertyDefinitionLabel "order_detail product_icon";
+	d2rq:column "order_detail.product_icon";
+	.
+map:order_detail_create_time a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_detail;
+	d2rq:property vocab:order_detail_create_time;
+	d2rq:propertyDefinitionLabel "order_detail create_time";
+	d2rq:column "order_detail.create_time";
+	d2rq:datatype xsd:dateTime;
+	.
+map:order_detail_update_time a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_detail;
+	d2rq:property vocab:order_detail_update_time;
+	d2rq:propertyDefinitionLabel "order_detail update_time";
+	d2rq:column "order_detail.update_time";
+	d2rq:datatype xsd:dateTime;
+	.
+
+# Table order_master
+map:order_master a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "order_master/@@order_master.order_id|urlify@@";
+	d2rq:class vocab:order_master;
+	d2rq:classDefinitionLabel "order_master";
+	.
+map:order_master__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_master;
+	d2rq:property rdfs:label;
+	d2rq:pattern "order_master #@@order_master.order_id@@";
+	.
+map:order_master_order_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_master;
+	d2rq:property vocab:order_master_order_id;
+	d2rq:propertyDefinitionLabel "order_master order_id";
+	d2rq:column "order_master.order_id";
+	.
+map:order_master_buyer_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_master;
+	d2rq:property vocab:order_master_buyer_name;
+	d2rq:propertyDefinitionLabel "order_master buyer_name";
+	d2rq:column "order_master.buyer_name";
+	.
+map:order_master_buyer_phone a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_master;
+	d2rq:property vocab:order_master_buyer_phone;
+	d2rq:propertyDefinitionLabel "order_master buyer_phone";
+	d2rq:column "order_master.buyer_phone";
+	.
+map:order_master_buyer_address a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_master;
+	d2rq:property vocab:order_master_buyer_address;
+	d2rq:propertyDefinitionLabel "order_master buyer_address";
+	d2rq:column "order_master.buyer_address";
+	.
+map:order_master_buyer_openid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_master;
+	d2rq:property vocab:order_master_buyer_openid;
+	d2rq:propertyDefinitionLabel "order_master buyer_openid";
+	d2rq:column "order_master.buyer_openid";
+	.
+map:order_master_order_amount a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_master;
+	d2rq:property vocab:order_master_order_amount;
+	d2rq:propertyDefinitionLabel "order_master order_amount";
+	d2rq:column "order_master.order_amount";
+	d2rq:datatype xsd:decimal;
+	.
+map:order_master_order_status a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_master;
+	d2rq:property vocab:order_master_order_status;
+	d2rq:propertyDefinitionLabel "order_master order_status";
+	d2rq:column "order_master.order_status";
+	d2rq:datatype xsd:integer;
+	.
+map:order_master_pay_status a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_master;
+	d2rq:property vocab:order_master_pay_status;
+	d2rq:propertyDefinitionLabel "order_master pay_status";
+	d2rq:column "order_master.pay_status";
+	d2rq:datatype xsd:integer;
+	.
+map:order_master_create_time a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_master;
+	d2rq:property vocab:order_master_create_time;
+	d2rq:propertyDefinitionLabel "order_master create_time";
+	d2rq:column "order_master.create_time";
+	d2rq:datatype xsd:dateTime;
+	.
+map:order_master_update_time a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:order_master;
+	d2rq:property vocab:order_master_update_time;
+	d2rq:propertyDefinitionLabel "order_master update_time";
+	d2rq:column "order_master.update_time";
+	d2rq:datatype xsd:dateTime;
+	.
+
+# Table product_category
+map:product_category a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "product_category/@@product_category.category_id@@";
+	d2rq:class vocab:product_category;
+	d2rq:classDefinitionLabel "product_category";
+	.
+map:product_category__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_category;
+	d2rq:property rdfs:label;
+	d2rq:pattern "product_category #@@product_category.category_id@@";
+	.
+map:product_category_category_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_category;
+	d2rq:property vocab:product_category_category_id;
+	d2rq:propertyDefinitionLabel "product_category category_id";
+	d2rq:column "product_category.category_id";
+	d2rq:datatype xsd:integer;
+	.
+map:product_category_category_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_category;
+	d2rq:property vocab:product_category_category_name;
+	d2rq:propertyDefinitionLabel "product_category category_name";
+	d2rq:column "product_category.category_name";
+	.
+map:product_category_category_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_category;
+	d2rq:property vocab:product_category_category_type;
+	d2rq:propertyDefinitionLabel "product_category category_type";
+	d2rq:column "product_category.category_type";
+	d2rq:datatype xsd:integer;
+	.
+map:product_category_create_time a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_category;
+	d2rq:property vocab:product_category_create_time;
+	d2rq:propertyDefinitionLabel "product_category create_time";
+	d2rq:column "product_category.create_time";
+	d2rq:datatype xsd:dateTime;
+	.
+map:product_category_update_time a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_category;
+	d2rq:property vocab:product_category_update_time;
+	d2rq:propertyDefinitionLabel "product_category update_time";
+	d2rq:column "product_category.update_time";
+	d2rq:datatype xsd:dateTime;
+	.
+
+# Table product_info
+map:product_info a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "product_info/@@product_info.product_id|urlify@@";
+	d2rq:class vocab:product_info;
+	d2rq:classDefinitionLabel "product_info";
+	.
+map:product_info__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_info;
+	d2rq:property rdfs:label;
+	d2rq:pattern "product_info #@@product_info.product_id@@";
+	.
+map:product_info_product_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_info;
+	d2rq:property vocab:product_info_product_id;
+	d2rq:propertyDefinitionLabel "product_info product_id";
+	d2rq:column "product_info.product_id";
+	.
+map:product_info_product_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_info;
+	d2rq:property vocab:product_info_product_name;
+	d2rq:propertyDefinitionLabel "product_info product_name";
+	d2rq:column "product_info.product_name";
+	.
+map:product_info_product_price a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_info;
+	d2rq:property vocab:product_info_product_price;
+	d2rq:propertyDefinitionLabel "product_info product_price";
+	d2rq:column "product_info.product_price";
+	d2rq:datatype xsd:decimal;
+	.
+map:product_info_product_stock a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_info;
+	d2rq:property vocab:product_info_product_stock;
+	d2rq:propertyDefinitionLabel "product_info product_stock";
+	d2rq:column "product_info.product_stock";
+	d2rq:datatype xsd:integer;
+	.
+map:product_info_product_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_info;
+	d2rq:property vocab:product_info_product_description;
+	d2rq:propertyDefinitionLabel "product_info product_description";
+	d2rq:column "product_info.product_description";
+	.
+map:product_info_product_icon a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_info;
+	d2rq:property vocab:product_info_product_icon;
+	d2rq:propertyDefinitionLabel "product_info product_icon";
+	d2rq:column "product_info.product_icon";
+	.
+map:product_info_product_status a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_info;
+	d2rq:property vocab:product_info_product_status;
+	d2rq:propertyDefinitionLabel "product_info product_status";
+	d2rq:column "product_info.product_status";
+	d2rq:datatype xsd:integer;
+	.
+map:product_info_category_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_info;
+	d2rq:property vocab:product_info_category_type;
+	d2rq:propertyDefinitionLabel "product_info category_type";
+	d2rq:column "product_info.category_type";
+	d2rq:datatype xsd:integer;
+	.
+map:product_info_update_time a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_info;
+	d2rq:property vocab:product_info_update_time;
+	d2rq:propertyDefinitionLabel "product_info update_time";
+	d2rq:column "product_info.update_time";
+	d2rq:datatype xsd:dateTime;
+	.
+map:product_info_create_time a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:product_info;
+	d2rq:property vocab:product_info_create_time;
+	d2rq:propertyDefinitionLabel "product_info create_time";
+	d2rq:column "product_info.create_time";
+	d2rq:datatype xsd:dateTime;
+	.
+
+# Table seller_info
+map:seller_info a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "seller_info/@@seller_info.seller_id|urlify@@";
+	d2rq:class vocab:seller_info;
+	d2rq:classDefinitionLabel "seller_info";
+	.
+map:seller_info__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:seller_info;
+	d2rq:property rdfs:label;
+	d2rq:pattern "seller_info #@@seller_info.seller_id@@";
+	.
+map:seller_info_seller_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:seller_info;
+	d2rq:property vocab:seller_info_seller_id;
+	d2rq:propertyDefinitionLabel "seller_info seller_id";
+	d2rq:column "seller_info.seller_id";
+	.
+map:seller_info_username a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:seller_info;
+	d2rq:property vocab:seller_info_username;
+	d2rq:propertyDefinitionLabel "seller_info username";
+	d2rq:column "seller_info.username";
+	.
+map:seller_info_password a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:seller_info;
+	d2rq:property vocab:seller_info_password;
+	d2rq:propertyDefinitionLabel "seller_info password";
+	d2rq:column "seller_info.password";
+	.
+map:seller_info_openid a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:seller_info;
+	d2rq:property vocab:seller_info_openid;
+	d2rq:propertyDefinitionLabel "seller_info openid";
+	d2rq:column "seller_info.openid";
+	.
+map:seller_info_create_time a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:seller_info;
+	d2rq:property vocab:seller_info_create_time;
+	d2rq:propertyDefinitionLabel "seller_info create_time";
+	d2rq:column "seller_info.create_time";
+	d2rq:datatype xsd:dateTime;
+	.
+map:seller_info_update_time a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:seller_info;
+	d2rq:property vocab:seller_info_update_time;
+	d2rq:propertyDefinitionLabel "seller_info update_time";
+	d2rq:column "seller_info.update_time";
+	d2rq:datatype xsd:dateTime;
+	.
+
