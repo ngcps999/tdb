@@ -295,7 +295,6 @@ public class TDBConnection {
                 System.out.println(object);
             }
 //            ResultSetFormatter.out(System.out, jsonItems, query);
-//
         } finally {
             dataset.end();
             execution.close();
@@ -339,7 +338,7 @@ public class TDBConnection {
 
     public void findProductById(Object id) {
         dataset.begin(ReadWrite.READ);
-        Model sell = dataset.getNamedModel("sell");
+        Model sell = dataset.getNamedModel("order");
         String queryStr = PREFIX_QXHOLY + "SELECT * WHERE { ?productId qx:productId ?value } ";
         QueryFactory.create();
     }
