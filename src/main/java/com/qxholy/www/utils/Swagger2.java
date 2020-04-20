@@ -18,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 @EnableAutoConfiguration
-@ComponentScan("com.qxholy.kg01.controller")
+@ComponentScan("com.qxholy.www")
 public class Swagger2 {
     @Bean
     public Docket createRestApi() {
@@ -34,7 +34,7 @@ public class Swagger2 {
         return new ApiInfoBuilder()
                 .title("springboot利用swagger构建api文档")
                 .description("简单优雅的restful风格")
-                .termsOfServiceUrl("http://localhost:8086/root/Xd")
+                .termsOfServiceUrl("http://localhost:8086/")
                 .version("1.0")
                 .build();
     }
